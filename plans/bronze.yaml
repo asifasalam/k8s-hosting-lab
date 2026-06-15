@@ -1,0 +1,7 @@
+pods: "5"
+
+requestsCpu: "500m"
+requestsMemory: "512Mi"
+
+limitsCpu: "1"
+limitsMemory: "1Gi"

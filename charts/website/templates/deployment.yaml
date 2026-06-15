@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.siteName }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.siteName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.siteName }}
+    spec:
+      containers:
+      - name: {{ .Values.siteName }}
+        image: {{ .Values.image }}
+
+        ports:
+        - containerPort: 80
+
+        volumeMounts:
+        - name: site-storage
+          mountPath: /usr/share/nginx/html 
+
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory }}
+            cpu: {{ .Values.resources.requests.cpu }}
+
+          limits:
+            memory: {{ .Values.resources.limits.memory }}
+            cpu: {{ .Values.resources.limits.cpu }}
+
+      volumes:
+      - name: site-storage
+        persistentVolumeClaim:
+          claimName: {{ .Values.siteName }}-pvc

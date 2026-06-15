@@ -1,0 +1,17 @@
+siteName: default-site
+
+host: default.local
+
+image: nginx
+
+storage:
+  size: 1Gi
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+
+  limits:
+    memory: "256Mi"
+    cpu: "200m"
